@@ -31,8 +31,9 @@ dependencyResolutionManagement {
 include(
     ":anki-common",
     ":api",
-    ":AnkiDroid",
-    ":baselineprofile",
+//    ":AnkiDroid",
+//    ":baselineprofile",
+    ":RcWords",
     ":common",
     ":common:android",
     ":compat",
