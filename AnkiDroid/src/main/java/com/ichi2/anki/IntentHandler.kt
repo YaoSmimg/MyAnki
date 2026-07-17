@@ -28,6 +28,7 @@ import com.ichi2.anki.libanki.DeckId
 import com.ichi2.anki.noteeditor.NoteEditorLauncher
 import com.ichi2.anki.servicelayer.ScopedStorageService
 import com.ichi2.anki.settings.Prefs
+import com.ichi2.anki.storage.StorageDecision
 import com.ichi2.anki.ui.windows.reviewer.ReviewerFragment
 import com.ichi2.anki.utils.MimeTypeUtils
 import com.ichi2.anki.worker.SyncWorker
@@ -112,7 +113,7 @@ class IntentHandler : AbstractIntentHandler() {
         Timber.i("Copying debug info to clipboard")
         // null string is handled by copyToClipboard in try-catch
         this.copyToClipboard(
-            text = (intent.getStringExtra(CLIPBOARD_INTENT_EXTRA_DATA)!!),
+            text = (intent.getStringExtra(EXTRA_CLIPBOARD_DATA)!!),
             failureMessageId = R.string.about_ankidroid_error_copy_debug_info,
         )
     }
@@ -124,6 +125,8 @@ class IntentHandler : AbstractIntentHandler() {
      *  * AnkiDroid is using a legacy directory to store user data but has access to it since storage permission
      * has been granted (as long as AnkiDroid targeted API < 30, requested legacy storage, and has not been uninstalled since)
      *
+     * The user must also have [decided][CollectionHelper.storageDecision] where data is stored;
+     * otherwise they are routed to the [DeckPicker].
      */
     @NeedsTest("clicking a file in 'Files' to import")
     private fun performActionIfStorageAccessible(
@@ -131,6 +134,12 @@ class IntentHandler : AbstractIntentHandler() {
         action: String?,
         block: () -> Unit,
     ) {
+        if (CollectionHelper.storageDecision() != StorageDecision.Decided) {
+            // checked before permissions: the permissions required depend on the chosen folder
+            Timber.i("Storage is not configured, cancelling intent '%s'", action)
+            launchDeckPickerIfNoOtherTasks(reloadIntent)
+            return
+        }
         if (grantedStoragePermissions(this, showToast = true)) {
             Timber.i("User has storage permissions. Running intent: %s", action)
             block()
@@ -159,7 +168,7 @@ class IntentHandler : AbstractIntentHandler() {
         reloadIntent: Intent,
         reviewerIntent: Intent,
     ) {
-        val deckId = intent.getLongExtra(REVIEW_DECK_INTENT_EXTRA_DECK_ID, 0)
+        val deckId = intent.getLongExtra(EXTRA_DECK_ID, 0)
         Timber.i("Handling intent to review deck '%d'", deckId)
 
         val reviewIntent =
@@ -338,9 +347,9 @@ class IntentHandler : AbstractIntentHandler() {
     }
 
     companion object {
-        const val REVIEW_DECK_INTENT_EXTRA_DECK_ID = "EXTRA_DECK_ID"
+        const val EXTRA_DECK_ID = "EXTRA_DECK_ID"
         private const val CLIPBOARD_INTENT = "com.ichi2.anki.COPY_DEBUG_INFO"
-        private const val CLIPBOARD_INTENT_EXTRA_DATA = "clip_data"
+        private const val EXTRA_CLIPBOARD_DATA = "clip_data"
 
         private val textMimeTypes = MimeTypeUtils.CSV_TSV_MIME_TYPES
 
@@ -399,7 +408,7 @@ class IntentHandler : AbstractIntentHandler() {
                 }
             } else if ("com.ichi2.anki.DO_SYNC" == action) {
                 LaunchType.SYNC
-            } else if (intent.hasExtra(REVIEW_DECK_INTENT_EXTRA_DECK_ID)) {
+            } else if (intent.hasExtra(EXTRA_DECK_ID)) {
                 LaunchType.REVIEW
             } else if (action == CLIPBOARD_INTENT) {
                 LaunchType.COPY_DEBUG_INFO
@@ -423,7 +432,7 @@ class IntentHandler : AbstractIntentHandler() {
             it.action = CLIPBOARD_INTENT
             // max length for an intent is 500KB.
             // 25000 * 2 (bytes per char) = 50,000 bytes <<< 500KB
-            it.putExtra(CLIPBOARD_INTENT_EXTRA_DATA, textToCopy.trimToLength(25000))
+            it.putExtra(EXTRA_CLIPBOARD_DATA, textToCopy.trimToLength(25000))
         }
 
         fun requiresCollectionAccess(launchType: LaunchType): Boolean =
@@ -498,7 +507,7 @@ class IntentHandler : AbstractIntentHandler() {
         fun getReviewDeckIntent(
             context: Context,
             deckId: DeckId,
-        ): Intent = Intent(context, IntentHandler::class.java).putExtra(REVIEW_DECK_INTENT_EXTRA_DECK_ID, deckId)
+        ): Intent = Intent(context, IntentHandler::class.java).putExtra(EXTRA_DECK_ID, deckId)
 
         /**
          * Returns an intent to review a specific deck.
@@ -511,7 +520,7 @@ class IntentHandler : AbstractIntentHandler() {
             deckId: DeckId,
         ) = Intent(context, IntentHandler::class.java).apply {
             setAction(Intent.ACTION_VIEW)
-            putExtra(REVIEW_DECK_INTENT_EXTRA_DECK_ID, deckId)
+            putExtra(EXTRA_DECK_ID, deckId)
         }
     }
 }

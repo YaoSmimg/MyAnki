@@ -185,7 +185,6 @@ class TranslationTest : RobolectricTest() {
                 // TR.preferencesAlways()
                 // TR.importingUpdateAlways()
                 "Answer", // R.string.card_side_answer | TR.browsingAnswer()
-                "Appearance", // R.string.pref_cat_appearance | TR.preferencesAppearance()
                 "Back", // R.string.back_field_name, R.string.previewer_back
                 // TR.notetypesBackField()
                 "Cancel", // R.string.dialog_cancel
@@ -207,9 +206,6 @@ class TranslationTest : RobolectricTest() {
                 // TR.aboutCopiedToClipboard()
                 // TR.errorsCopiedToClipboard()
                 "Dark", // R.string.night_theme_dark | TR.preferencesThemeDark()
-                "Decks", // R.string.decks
-                // TR.actionsDecks()
-                // TR.browsingSidebarDecks()
                 "Delete", // R.string.dialog_positive_delete
                 // TR.actionsDelete()
                 // TR.editingImageOcclusionDelete()
@@ -245,7 +241,6 @@ class TranslationTest : RobolectricTest() {
                 "Good", // R.string.ease_button_good | TR.studyingGood()
                 "Hard", // R.string.ease_button_hard | TR.studyingHard()
                 "Help", // R.string.help | TR.actionsHelp()
-                "Import", // R.string.menu_import | TR.actionsImport()
                 "Language", // R.string.language | TR.preferencesLanguage()
                 "Later", // R.string.button_backup_later | TR.schedulingUpdateLaterButton()
                 "Learn More", // R.string.scoped_storage_learn_more | TR.schedulingUpdateMoreInfoButton()
@@ -300,7 +295,6 @@ class TranslationTest : RobolectricTest() {
                 // TR.customStudySelect()
                 // TR.editingImageOcclusionSelectTool()
                 "Show remaining card count", // R.string.show_progress_summ | TR.preferencesShowRemainingCardCount()
-                "Statistics", // R.string.statistics | TR.statisticsTitle()
                 "Study", // R.string.studyoptions_start | TR.decksStudy()
                 "Sync", // R.string.button_sync, R.string.pref_cat_sync
                 // TR.qtMiscSync()

@@ -39,7 +39,6 @@
     <string name="pref_cat_sync" comment="title of the sync preferences category" maxLength="41">การซิงค์</string>
     <string name="pref_cat_scheduling" maxLength="41">การจัดเวลาเรียน</string>
     <string name="pref_cat_whiteboard" maxLength="41">Whiteboard</string>
-    <string name="pref_cat_appearance" maxLength="41">Appearance</string>
     <string name="pref_cat_themes" maxLength="41">ธีม</string>
     <string name="pref_cat_gestures" maxLength="41">Gestures</string>
     <string name="pref_cat_controls" maxLength="41">การควบคุม</string>
@@ -192,7 +191,8 @@
     <!-- Custom sync server settings -->
     <string name="custom_sync_server_title" maxLength="41">Custom sync server</string>
     <string name="custom_sync_server_summary_none_of_the_two_servers_used" comment="This summary is shown when neither of the two custom sync servers are used,         which is the default.">Not used</string>
-    <string name="custom_sync_server_help2"><![CDATA[        As an alternative to synchronizing with AnkiWeb,
+    <string name="custom_sync_server_help2"><![CDATA[
+        As an alternative to synchronizing with AnkiWeb,
         you may use your own server for synchronization.
         If not set, the default AnkiWeb server will be used instead.
         <a href="%s">Learn more</a>
@@ -281,7 +281,8 @@
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->
-    <string name="pref__backups_help__summary"><![CDATA[        AnkiDroid periodically backs up your collection.
+    <string name="pref__backups_help__summary"><![CDATA[
+        AnkiDroid periodically backs up your collection.
         After backups are more than two days old,
         AnkiDroid will start removing some of them to free up disk space.
         <br><br>
