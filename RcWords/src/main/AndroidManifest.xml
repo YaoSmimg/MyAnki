@@ -377,6 +377,17 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <!-- 单词学习专用 Activity -->
+        <activity
+            android:name="com.ichi2.anki.wordstudy.WordStudyActivity"
+            android:label="单词学习"
+            android:theme="@style/Theme_Dark.Launcher"
+            android:exported="false"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="adjustResize"
+            android:parentActivityName=".DeckPicker" />
+
         <activity
             android:name="com.ichi2.anki.account.AccountActivity"
             android:label="@string/menu_my_account"
@@ -616,8 +627,7 @@
             </intent-filter>
         </receiver>
 
-        <receiver
-            android:name="com.ichi2.anki.receiver.SdCardReceiver"
+        <receiver android:name="com.ichi2.anki.receiver.SdCardReceiver"
             android:enabled="true"
             android:exported="true"
             >

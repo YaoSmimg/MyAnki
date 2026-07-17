@@ -37,6 +37,9 @@ class BottomNavController(
         /** Show the deck picker content and hide any fragments. */
         fun onHomeSelected()
 
+        /** Show the word study home screen. */
+        fun onWordStudySelected()
+
         /** Show the card browser fragment. */
         fun onBrowserSelected()
 
@@ -53,6 +56,7 @@ class BottomNavController(
         val tag: String,
     ) {
         HOME(R.id.nav_home, "home"),
+        WORD_STUDY(R.id.nav_word_study, "word_study"),
         BROWSER(R.id.nav_browser, "browser"),
         STATS(R.id.nav_stats, "stats"),
         MORE(R.id.nav_more, "more"),
@@ -64,6 +68,7 @@ class BottomNavController(
             ): NavigationItem? =
                 when (id) {
                     R.id.nav_home -> HOME
+                    R.id.nav_word_study -> WORD_STUDY
                     R.id.nav_browser -> BROWSER
                     R.id.nav_stats -> STATS
                     R.id.nav_more -> MORE
@@ -99,6 +104,10 @@ class BottomNavController(
                     switchTo(NavigationItem.HOME)
                     true
                 }
+                R.id.nav_word_study -> {
+                    switchTo(NavigationItem.WORD_STUDY)
+                    true
+                }
                 R.id.nav_browser -> {
                     switchTo(NavigationItem.BROWSER)
                     true
@@ -127,6 +136,7 @@ class BottomNavController(
         backCallback.isEnabled = navItem != NavigationItem.HOME
         when (navItem) {
             NavigationItem.HOME -> listener.onHomeSelected()
+            NavigationItem.WORD_STUDY -> listener.onWordStudySelected()
             NavigationItem.BROWSER -> listener.onBrowserSelected()
             NavigationItem.STATS -> listener.onStatsSelected()
             NavigationItem.MORE -> {} // handled directly in setup(), tab is not selected

@@ -21,6 +21,7 @@ import com.ichi2.anki.browser.CardBrowserViewModel
 import com.ichi2.anki.common.annotations.NeedsTest
 import com.ichi2.anki.pages.Statistics
 import com.ichi2.anki.settings.Prefs
+import com.ichi2.anki.wordstudy.WordStudyHomeFragment
 
 /**
  * Manages the bottom navigation bar for the home screen.
@@ -75,6 +76,17 @@ private fun handleNavigationItemSelected(
             contentWrapper.isVisible = true
             deckPicker.floatingActionMenu.showFloatingActionButton()
             backCallback.isEnabled = false
+            true
+        }
+        NavigationItem.WORD_STUDY -> {
+            backCallback.isEnabled = true
+            // 显示单词学习首页 Fragment
+            showBottomNavFragment(
+                ::WordStudyHomeFragment,
+                item.tag,
+                contentWrapper,
+                fragmentContainer,
+            )
             true
         }
         NavigationItem.BROWSER -> {

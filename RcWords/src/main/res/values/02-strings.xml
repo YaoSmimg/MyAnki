@@ -451,5 +451,29 @@ opening the system text to speech settings fails">Failed to open text to speech 
     <string name="set_due_date_date_range">Date range</string>
 
     <string comment="Shown when retrying a running action" name="already_in_progress">Already in progress</string>
+
+
+        <!-- Word Study Mode  newwwww -->
+    <string name="word_study">单词学习</string>
+    <string name="start_study">开始学习</string>
+    <string name="adjust_plan">调整计划</string>
+    <string name="modify_book">修改 &gt;</string>
+    <string name="today_plan">─── 今日计划 ───</string>
+    <string name="new_cards">新词 %d</string>
+    <string name="review_cards">复习 %d</string>
+    <string name="estimated_time">预计用时 %d 分钟</string>
+    <string name="progress_completed">已完成 %1$d / %2$d 词</string>
+    <string name="study_complete_today">今日已完成 ✓</string>
+    <string name="rest_well">太棒了，休息一下吧</string>
+
+
+
+    <!-- Word Study Preferences Keys -->
+    <string name="daily_new_limit_key" translatable="false">daily_new_limit</string>
+    <string name="daily_review_limit_key" translatable="false">daily_review_limit</string>
+
+    <string name="current_word_book_id_key" translatable="false">current_word_book_id</string>
+
+
 </resources>
 
